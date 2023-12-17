@@ -3,16 +3,16 @@
 {% block title %}{{ link.title }}{% endblock %}
 
 {% block content %}
-<p>
-    <h2>{{ link.title }}</h2>
-    <p>{{ link.desc }}</p>
-    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-    <em>(by {{ link.user.username }})</em>
+    <p>
+        <h2>{{ link.title }}</h2>
+        <p>{{ link.desc }}</p>
+        <a href="{{ link.url }}" class="btn btn-custom link-button" target="_blank">Open ></a>
+        <em>(by {{ link.user.username }})</em>
 
-    {% for tag in link.tags %}
-    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-    		{{ tag.title }}
-    	</a>
-    {% endfor %}
-</p>
+        {% for tag in link.tags %}
+            <a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer" class="btn btn-custom link-button">
+                {{ tag.title }}
+            </a>
+        {% endfor %}
+    </p>
 {% endblock %}

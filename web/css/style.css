@@ -2,33 +2,135 @@ body {
     padding-top: 100px; 
 }
 
-#logo{
-	width:230px;
-	height: 0;
-	display: block;
-	overflow: hidden;
-	padding-top: 76px;
-	font-size: 0;
-	background: url("../images/logo.png") no-repeat center center;
+#logo {
+    width: 230px;
+    height: 0;
+    display: block;
+    overflow: hidden;
+    padding-top: 76px;
+    font-size: 0;
+    background: url("../images/logo.png") no-repeat center center;
 }
 
+/* Style pour le conteneur principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Style pour le contenu principal */
+.content {
+    flex: 1;
+}
+
+/* Style pour le pied de page */
 .footer {
+    background-color: #f2f2f2;
+    color: #333;
     border-top: 1px solid #ccc;
-    padding-top: 10px;
+    padding: 10px 0;
     text-align: center;
-    margin-top: 30px;
 }
-
 .articleTitle:hover, .articleTitle:focus {
     text-decoration: none;
 }
 
+/* Style des Tableaux */
 .adminTable {
     margin-top: 20px;
     margin-bottom: 20px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.adminTable th, .adminTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.adminTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.adminTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #007bff; /* Bleu pour l'en-tête */
+    color: white;
 }
 
 #errorPanel {
     padding-top: 30px;
     padding-bottom: 10px;
+}
+
+/* Barre de Navigation */
+.navbar-default {
+    background-color: #007bff; /* Bleu pour la barre de navigation */
+    border-color: #0056b3;
+}
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff; /* Texte en blanc */
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-nav > li > a:hover {
+    color: #cccccc; /* Gris au survol */
+}
+
+/* Boutons Personnalisés */
+.btn-custom {
+    background-color: #333; /* Vert pour un look moderne */
+    color: white;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    transition: background-color 0.3s; /* Animation au survol */
+}
+
+.btn-custom:hover {
+    background-color: #007bff;; /* bleu au survol */
+}
+
+.btn-custom:hover, .btn-custom:focus {
+    background-color: #007bff; /* Couleur de fond au survol */
+    color: #ffffff; /* Couleur du texte au survol */
+    border-color: #0056b3; /* Couleur de la bordure au survol */
+}
+.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: #333;
+    margin: 0 5px;
+    font-size: 20px; /* Ajustez la taille selon vos besoins */
+}
+
+.social-icons a:hover {
+    color: #007bff; /* Ou toute autre couleur au survol */
+}
+
+.welcome-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 24px; /* Taille de la police */
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.link-button {
+    display: block;
+    width: 100%;
+    margin: 10px 0; /* Espacement entre les boutons */
+    /* Autres styles pour les boutons ici... */
 }

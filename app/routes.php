@@ -12,8 +12,14 @@ $app->match('/tag/{id}', "Watson\Controller\HomeController::tagAction")->bind('t
 // Login form
 $app->get('/login', "Watson\Controller\HomeController::loginAction")->bind('login');
 
-// Admin zone
-$app->get('/admin', "Watson\Controller\AdminController::indexAction")->bind('admin');
+// Admin zone - Route par défaut sans pagination
+$app->get('/admin', "Watson\Controller\AdminController::indexAction")
+    ->bind('admin');
+
+// Admin zone - Route pour la pagination
+$app->get('/admin/page/{page}', "Watson\Controller\AdminController::indexAction")
+    ->value('page', 1)
+    ->bind('admin_paginated');
 
 // Add a new link
 $app->match('/admin/link/add', "Watson\Controller\AdminController::addLinkAction")->bind('admin_link_add');
@@ -32,3 +38,6 @@ $app->match('/admin/user/{id}/edit', "Watson\Controller\AdminController::editUse
 
 // Remove a user
 $app->get('/admin/user/{id}/delete', "Watson\Controller\AdminController::deleteUserAction")->bind('admin_user_delete');
+
+// Route pour le flux RSS
+$app->get('/rss', "Watson\Controller\HomeController::rssFeedAction")->bind('rss');

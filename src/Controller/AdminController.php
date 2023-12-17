@@ -15,16 +15,26 @@ class AdminController {
     /**
      * Admin home page controller.
      *
-     * @param Application $app Silex application
-     */
-    public function indexAction(Application $app) {
-        $links = $app['dao.link']->findAll();
-        $users = $app['dao.user']->findAll();
-        return $app['twig']->render('admin.html.twig', array(
-            'links' => $links,
-            'users' => $users));
-    }
+      * @param Application $app Silex application
+ * @param int $page Numéro de la page pour la pagination
+ */
+public function indexAction(Application $app, $page = 1) {
+    $linksPerPage = 15; // Nombre de liens par page
+    $totalLinks = $app['dao.link']->countAllLinks(); // Comptez tous les liens
+    $pagesCount = ceil($totalLinks / $linksPerPage); // Calculez le nombre total de pages
+    $links = $app['dao.link']->findAllByPage($page, $linksPerPage); // Trouvez les liens pour la page actuelle
 
+    // Récupérez également les utilisateurs pour les passer à la vue
+    $users = $app['dao.user']->findAll();
+
+    // Renvoyez la vue avec les liens, les utilisateurs et les informations de pagination
+    return $app['twig']->render('admin.html.twig', array(
+        'links' => $links,
+        'users' => $users, // Ajoutez cette ligne pour passer les utilisateurs à la vue
+        'pagesCount' => $pagesCount,
+        'currentPage' => $page
+    ));
+}
     /**
      * Add link controller.
      *

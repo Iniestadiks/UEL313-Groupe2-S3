@@ -1,22 +1,28 @@
 {% extends "layout.html.twig" %}
+{% block welcomeMessage %}
+    <div class="welcome-message">
+        <h1>Bienvenue dans l'application Watson</h1>
+        <p>Explorez le monde des liens partagés et découvrez de nouvelles perspectives</p>
+    </div>
+{% endblock %}
 
 {% block title %}Home{% endblock %}
 
 {% block content %}
-	<div class="row">
-		{% for link in links %}
-			<div class="col-md-4">
-			    <h2><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></h2>
-			    <p>{{ link.desc }}</p>
-			    <a href="{{ link.url }}" title="" target="_blank">Open ></a>
-			    <em>(by {{ link.user.username }})</em>
+    <div class="row">
+        {% for link in links %}
+            <div class="col-md-4">
+                <h2><a class="linkTitle" href="{{ path('link', { 'id': link.id }) }}">{{ link.title }}</a></h2>
+                <p>{{ link.desc }}</p>
+                <a href="{{ link.url }}" class="btn btn-custom link-button" target="_blank">Open ></a>
+                <em>(by {{ link.user.username }})</em>
 
-			    {% for tag in link.tags %}
-			    	<a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer">
-			    		{{ tag.title }}
-			    	</a>
-			    {% endfor %}
-			</div>
-		{% endfor %}
-	</div>
+                {% for tag in link.tags %}
+                    <a href="{{ path('tag', { 'id': tag.id }) }}" title="Filtrer" class="btn btn-custom link-button">
+                        {{ tag.title }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

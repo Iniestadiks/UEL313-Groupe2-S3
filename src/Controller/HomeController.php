@@ -1,9 +1,9 @@
 <?php
-
 namespace Watson\Controller;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController {
 
@@ -65,5 +65,31 @@ class HomeController {
             'last_username' => $app['session']->get('_security.last_username'),
             )
         );
+    }
+    public function rssFeedAction(Application $app) {
+        $links = $app['dao.link']->findLastFifteen();
+    
+        $rssFeed = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"></rss>');
+        $channel = $rssFeed->addChild('channel');
+        $channel->addChild('title', 'Watson RSS Feed');
+        $channel->addChild('link', 'http://localhost:1234/');
+        $channel->addChild('description', 'Les derniers liens publiés sur Watson');
+    
+        $atomLink = $channel->addChild('atom:link', '', 'http://www.w3.org/2005/Atom');
+        $atomLink->addAttribute('href', 'http://localhost:1234/rss');
+        $atomLink->addAttribute('rel', 'self');
+        $atomLink->addAttribute('type', 'application/rss+xml');
+    
+        foreach ($links as $link) {
+            $item = $channel->addChild('item');
+            $item->addChild('title', $link->getTitle());
+            $item->addChild('link', $link->getUrl());
+            $item->addChild('description', $link->getDesc());
+            $item->addChild('guid', $link->getUrl());
+        }
+    
+        $response = new Response($rssFeed->asXML(), 200);
+        $response->headers->set('Content-Type', 'application/rss+xml; charset=utf-8');
+        return $response;
     }
 }
